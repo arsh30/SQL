@@ -1,0 +1,290 @@
+SELECT ALL VARIATIONS AND JOINS IN THIS LECTURE -----
+
+JOINS -> Tab use krege jb 1 table ko dusre table se relate krre honge
+or related krte hai, fk pk ki help se
+
+SELECT COMMANDS -> DQL type 
+
+- SELECT * from TABLE_NAME -> isse hum data ko visualize krre the 
+* -> Means all columns SELECT
+
+---->  structure of SELECT command
+    -> select columnName from TABLE_NAME; 
+   
+   MAIN SYNTAX ---->
+
+    -> select col1,col2 from TABLE_NAME 
+    where col1 > 10 (conditons) , 
+    group by col_Name 
+    having condition (yeh condition tb aayegi jb group by pr agr lagani ho)
+    order by columnName asc or desc
+    
+    1) where ke baad hum conditions lga skte hai "Columns pr" 
+        [chahe vo koi bhi column ho table me]
+
+    2)  group By clause aayega 
+    3) Having -> having tb aayega jb group by pr conditons lgani hoti hai 
+    [NOTE - Agr condition nahi hai toh direct group by par aa skte hai]
+    4) order by colName asc / desc 
+
+    -----------
+EXAMPLE:
+
+STUDENT TABLE 
+
+SNO     NAME    MARKS    SECTION
+1       AA      98          A
+2       BB      80          B
+3       CC      70          C
+4       DD      60          A
+5       EE      90          A
+6       FF      50          B
+7       GG      40          C
+
+
+ques) ye btana h ki kitne logo ke marks greater than 60 aaye hai, sirf name btna 
+hai
+
+sol) select name from student where marks > 60
+
+
+ques) ye btana h ki kitne logo ke marks greater than 60 se upr and 80 se kam hai, 
+sirf name btna hai
+
+sol) select name from student where marks > 60 and marks < 80;
+
+
+CLAUSES ----->
+
+1) 'ALL' Clause: 
+SELECT all names from students;  [ all likhe ya na likhe ye sare hi dega]
+
+2) 'WHERE' clause:
+SELECT col_Name from student where [condition]
+
+2.1) OPERATIONS IN WHERE CLAUSE:
+         =, > , <, <= , >= , <> IE (not equal) or not = 
+
+2.2) RANGE IN WHERE CLAUSE: Range me kese check krte hai 
+    1) >= and <= 
+
+    2) between 
+    eg: select * [all columns] from student where marks between 60 and 80;
+
+2.3) 'IN' In where CLAUSE: ye voi dega jidr yeh sab match hoga
+means table me data hi aisa hai agr values match kregi toh hi include hongi city 
+me
+
+EG: supposewe have table 
+
+NAME    MARKS   CITY 
+
+query -> SELECT * from student where city in ('delhi','mumbai');
+
+
+2.3) SEARCH -> Eg: like pen likhte hai agr search me toh yeh pen se start hone 
+                wale le aata hai, like p
+                so idr condition depend krti hai 2 types pr 
+                '%' or _ 
+
+                % -> means any substring 
+                _ -> means any character 
+
+EG: Table me data aisa hai suppose 
+[Himanshu, abcd, dbas, arsh]
+
+toh hume aise name chaiye jo "H" se start hote ho;
+
+-> so we have 2 operator -> like (case IN-sensitity) and ilike 
+yeh dono me se 1 case sensitity ko dekhta hai and dusra ignore krta hai 
+
+
+eg: WHERE isme likhre honge Like 'H%' -> Means vo aise name lekr aayega jo capital
+"H" se start hore honge 
+
+Query -> SELECT name from student where name like H%; [H se start hone wale sare 
+         aje]
+
+ques) aise name aaye jo start "H" se ho but unme sirf 4 hi character hi aate ho?
+sol) So, STARTING WITH "H"and HAVING 4 CHARACTERS 
+Query -> SELECT name from where name like 'H_ _ _'; -> [starting with H and having 4 characters]
+
+ SELECT name from where name like 'H_ _ H'; this starting with H and ending with H 
+
+ques) start with H and having any number of chracter, but last me bhi H ho?
+sol) H%H 
+
+ques) start with H and uske aage koi 1 character' then End with H 
+sol) H_%H;
+
+NOTE -> Agr humko aisa kuch chaiye ho, ki yeh condition me na aaye? 
+toh uske aage "Not like" lgado 
+
+----------------------PRACTICAL---------------------------------------------------
+
+->  create table student (name varchar(20)); 
+
+- isme marks ka column add krna using alter command 
+-> alter table student add column marks int(20);
+-> insert into student values ('foo',1,98); -> Name,school_id,marks 
+-> insert into student values ('baar',1,97);
+-> insert into student values ('baar',1,57);
+-> insert into student values ('baar',1,87);
+-> SELECT * from student; // TO display All entries
+
+ques) aise logo ke marks btado jike marks 60 se greater hai ?
+sol) select name,marks from student where marks > 60;
+
+
+ques) aise logo ke marks btado jo 60 se greater hai, 2 values ke marks same hai 
+    unhe 1 bar chaiye? 
+
+sol) ->  insert into student values ('baar',1,97); ye 2 bar entry hai, but hame 
+        1 bar chaiye 
+       query -> select distinct name,marks from student where marks > 60;
+
+    
+Ques) hame 60 se jyda wale marks toh chaiye but in decreasing order? 
+sol) select distinct name,marks froms student where marks > 60 order by marks 
+    desc; 
+    [by default increasing order]
+
+--------- GROUP BY with some functions -----------
+
+-> hum sirf school_id dekhre hai , ki kis kis school me table wale log pdhe hai 
+SELECT distinct school_id from student;  
+
+-> school_id inke group krdege 
+SELECT distinct school_id from student group by school_id; 
+[above query se jo school_id the vo group hogye]
+Eg: 3 ->ye unka grup hai jo 3 number ke school me pdhte hai 
+
+
+------FUNCTIONS WITH GROUP BY ----------
+
+
+-> SELECT school_id,COUNT (name) AS num_of_stud from student group by school_id;
+    count btayega ki uss group me kitne student hai 
+
+
+-> un student ke school_id ke group ke AVG marks btado?
+select school_id , avg(marks) , count(name) as num_of_stud from students group by 
+school_id; // JO SCHOOL ID KA GROUP HAI, UNKE AVG MARKS BTADO 
+
+
+-> un student ke school_id ke group ke SUM marks btado?
+select school_id , sum(marks) , count(name) as num_of_stud from students group by 
+school_id; // JO SCHOOL ID KA GROUP HAI, UNKE AVG MARKS BTADO 
+
+
+-> unhi schools ke group ka data dekhna hai, jinka avg greater than 60 ho 
+select school_id, avg(marks) from student group by having avg(marks) > 60;
+
+[NOTE -> Jo avg marks group krke nikale then unke upr conditon apply krdi]
+
+----------OVERALL SYNTAX FOR SELECT  ------------>
+
+select * or col_Name from TABLE_NAME where condition group by having order by 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

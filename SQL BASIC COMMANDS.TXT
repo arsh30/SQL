@@ -1,0 +1,163 @@
+1) 1st COMMAND  -> CREATE TABLE COMMAND 
+
+Syntax -> CREATE TABLE TABLE_NAME(
+                                ColName1 dataType(size) constraint(optional),
+                                ColName2 dataType(size) constraint(optional),
+                                ColName2 dataType(size)
+                                 );
+
+NOTE -> PostgreSQL -> isko dataType ke sth size ki need nahi h , 
+sari query semi colon se khtm hoti hai 
+
+
+2) 2nd  COMMAND -> DROP TABLE COMMAND -> To delete a Table permanently
+
+Syntax -> DROP TABLE TABLE_NAME;
+
+3) 3rd Command -> INSERT Command 
+syntax -> insert into TABLE_NAME values (1,'Himanshu',10);
+        2nd way to insert -> insert into table (ColName) values 
+                            (1,'Himanshu');
+        By default value jo jaati hai vo -> not null hoti hai
+
+class 3->
+
+4) SELECT * from TABLE_NAME; -> means sare columns jo hai, vo select krlega and to 
+                                display This command is used 
+
+
+---------- CLASS 3 ======
+ALTER VARIATIONS -> 
+
+1) ADD COLUMN: "CITY "-> ye add krege, like jese humne kra tha 
+  IE create table TABLE_NAME(columnName dataType(size) constraints) similarly idr likhege
+
+    -> alter table TABLE_NAME add column CITY varchar(20) not null;
+
+2) DROP COLUMN: 
+    -> alter table TABLE_NAME DROP COLUMN "columnName"; [inverted comma nahi aayege]
+
+3) RENAME COLUMN:
+    -> alter table TABLE_NAME RENAME columnName to updateColumnName;
+
+    [Note-> interviewer can ask, aisi command btao jisme "TO" ka use hora ho, 
+    ya ALTER KI aisi command btao jiske sth "TO" ka use hora ho ] 
+
+
+4) CHANGE DATA TYPE:
+    -> alter table TABLE_NAME ALTER column name TYPE varchar(20);
+    Type -> Ye koi bhi hoskta int , Number
+
+
+5) RENAME TABLE:
+    ->alter table TABLE_NAME RENAME to UPDATED_TABLE_NAME;
+
+
+6) ADD CONSTRAINT:
+    -> alter table TABLE_NAME alter column columnName[jiske age constraint lgana h] set 
+        CONSTRAINT
+        For instance: [constraint can be : not null, check, default etc]
+
+7) DROP CONSTRAINT:
+    -> alter table TABLE_NAME alter column columnName[jise contraint remove krna] 
+        DROP CONSTRAINT_NAME[jo remove krna hai]
+
+------------------------------------------------------------------
+SOME QUESTIONS ->
+
+QUES) DATE WITH CHECK CONTRAINT 
+Write a alter command to add check constraint 
+
+sol) alter table student add constraint age check(dob > '2002 -01-24');
+[FOR REF: "NOTE: age -> It is a constraint name", column name is "DOB"]
+
+QUES) DROP CHECK CONSTRAINT IN THE ABOVE EXAMPLE
+sol) alter table student drop age[contraint_name ie age]
+
+QUES) Agr not null constraint remove krna hota 
+SOL) alter table student alter column columnName[jis se remove krna constraint]
+     DROP CONSTRAINT_NAME[jo remove krna hai ie not null]
+
+
+QUES) How to add primary key using ALTER command ,
+suppose id primary key bnana chahte hai , student table me 
+
+SOL) alter table student add primary key (columnName [jiske aage add krni hai ]).
+    [Note: primary key is made witht he help of 2 constraint ie unique and not null]
+
+CONCEPT -> FOREIGN KEY 
+-> A FOREIGN KEY is a field (or collection of fields) in one table, that refers to the  
+    PRIMARY KEY in another table.
+
+suppose 1 table hai building, and other table is rooms 
+- building table has column b_no, n_name 
+
+- rooms table has column  rno, bno, roomNo 
+
+EG: Building Table 
+B_NO  B_NAME 
+1       A 
+2       B 
+3       C 
+4       D
+
+rooms Table 
+R_NO    B_NO    ROOM_NO
+1       1       1001
+2       1       1002
+3       2       1003
+4       2       1004
+
+Building has many rooms, how many types of relations
+ - 1 to 1
+ - 1 to many
+ - many to 1
+ - many to many
+
+So, building is 1 to many, means 1 kafi jgh relation hai, 2nd table me 
+
+- So B_NO jo hai, vo building table se aara hai, so idr invalid entry nahi honi chaiye 
+so this concep is called foreign key 
+
+
+QUES) Alter table se create krege foreign key 
+sol) alter table room(konse table me foreign key hai) add constraint fk_buildings foreign 
+     key (bno [kiske upr lgare ho]) reference buildings [TABLE_NAME](b_no) [jo constraint 
+     name]
+
+   - fk_buildings - it is constraint name jo bnaya hai humne.
+   - NOTE -> 1 table me 1 se jyda foreign key ho skti hai hai
+   - NOTE -> Each table can only have one primary key
+
+
+8) DELETE -> SARI VALUES DLETE KRDEGA YEH 
+delete from student;
+
+
+9)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,259 @@
+ALTER COMMANDS [DDL Command] --> ddl command -> CREATE, DROP, ALTER 
+
+Eg: jab table create krre hai, name, rollNo entries daali  toh glti hogyi 
+name jo hai, uska data type "int" hogya,but hame "varchar" chaiye tha , 
+Ya fir varchar(20) iska size 20 diya hai or bhi bde bde name aare hai, 
+ya fir koi column add krna hai,
+ya kuch bhi table me modify krna hai, vo sab "ALTER COMMAND" se hongi.
+
+ALTER VARIATIONS -> 
+
+1) ADD COLUMN: "CITY "-> ye add krege, like jese humne kra tha 
+  IE create table TABLE_NAME(columnName dataType(size) constraints) similarly idr likhege
+
+    -> alter table TABLE_NAME add column CITY varchar(20) not null;
+
+2) DROP COLUMN: 
+    -> alter table TABLE_NAME DROP COLUMN "columnName"; [inverted comma nahi aayege]
+
+3) RENAME COLUMN:
+    -> alter table TABLE_NAME RENAME columnName to updateColumnName;
+
+    [Note-> interviewer can ask, aisi command btao jisme "TO" ka use hora ho, 
+    ya ALTER KI aisi command btao jiske sth "TO" ka use hora ho ] 
+
+
+4) CHANGE DATA TYPE:
+    -> alter table TABLE_NAME ALTER column name TYPE varchar(20);
+    Type -> Ye koi bhi hoskta int , Number
+
+
+5) RENAME TABLE:
+    ->alter table TABLE_NAME RENAME to UPDATED_TABLE_NAME;
+
+
+6) ADD CONSTRAINT:
+    -> alter table TABLE_NAME alter column columnName[jiske age constraint lgana h] set 
+        CONSTRAINT
+        For instance: [constraint can be : not null, check, default etc]
+
+7) DROP CONSTRAINT:
+    -> alter table TABLE_NAME alter column columnName[jise contraint remove krna] 
+        DROP CONSTRAINT_NAME[jo remove krna hai]
+
+------------------------------------------------------------------
+SOME QUESTIONS ->
+
+QUES) DATE WITH CHECK CONTRAINT 
+Write a alter command to add check constraint 
+
+sol) alter table student add constraint age check(dob > '2002 -01-24');
+[FOR REF: "NOTE: age -> It is a constraint name", column name is "DOB"
+Dob par apply kra hai check constarint]
+
+QUES) DROP CHECK CONSTRAINT IN THE ABOVE EXAMPLE
+sol) alter table student drop age[contraint_name ie age]
+
+QUES) Agr not null constraint remove krna hota 
+SOL) alter table student alter column columnName[jis se remove krna constraint]
+     DROP CONSTRAINT_NAME[jo remove krna hai ie not null]
+
+
+QUES) How to add primary key using ALTER command ,
+suppose id primary key bnana chahte hai , student table me 
+
+SOL) alter table student add primary key (columnName [jiske aage add krni hai ]).
+    [Note: primary key is made witht he help of 2 constraint ie unique and not null]
+
+CONCEPT -> FOREIGN KEY 
+-> A FOREIGN KEY is a field (or collection of fields) in one table, that refers to the  
+    PRIMARY KEY in another table.
+
+suppose 1 table hai building, and other table is rooms 
+- building table has column b_no, n_name 
+
+- rooms table has column  rno, bno, roomNo 
+
+EG: Building Table 
+B_NO  B_NAME 
+1       A 
+2       B 
+3       C 
+4       D
+
+rooms Table 
+R_NO    B_NO    ROOM_NO
+1       1       1001
+2       1       1002
+3       2       1003
+4       2       1004
+
+Building has many rooms, how many types of relations
+ - 1 to 1
+ - 1 to many
+ - many to 1
+ - many to many
+
+So, building is 1 to many, means 1 kafi jgh relation hai, 2nd table me 
+
+- So B_NO jo hai, vo building table se aara hai, so idr invalid entry nahi honi chaiye 
+so this concep is called foreign key 
+
+
+QUES) Alter table se create krege foreign key 
+sol) alter table room(konse table me foreign key hai) add constraint fk_buildings foreign 
+     key (bno [kiske upr lgare ho]) reference buildings [TABLE_NAME](b_no) [jo constraint 
+     name]
+
+   - fk_buildings - it is constraint name jo bnaya hai humne.
+   - NOTE -> 1 table me 1 se jyda foreign key ho skti hai hai
+   - NOTE -> Each table can only have one primary key
+
+-----------------------------------------------------------------------
+ PRACTICAL IMPLEMENTATIONS ->
+
+ques) write a command to add 1 column ie name varchar(20)
+
+     CREATE table student  (name varchar(20));
+    -> select * from student; -> Tables show hojega 
+
+1) ADD COLUMN -> marks add krna hai which is of type "Int"
+
+-> Query -> alter table student add column marks int(20) constraintName if you want;
+
+
+2) DROP COLUMN -> 
+QUERY -> alter table student drop column marks; 
+        select * from student; // check krne ke liye ki drop hogya
+
+
+3) RENAME TABLE -> 
+QUERY -> alter table student rename to newStudent;
+
+FOR BRIEF -> alter table student[old TABLE_NAME] rename to newStudent [updated Table 
+            name];
+        select * from student; - it will not work 
+
+
+4) ADD CONSTRAINTS -> name me constraint lgana hai - not null
+QUERY -> alter table student alter column name set not null;  
+
+FOR BREIF ->   alter table student [Table name] alter column name(columnName) 
+                set not null (constraint name);
+
+
+5)  DROP CONSTRAINTS -> 
+QUERY -> alter table student alter column name  drop not null.
+
+FOR BRIEF -> alter table student alter column name[col_Name] drop not null[constraint name].
+
+
+ques) ADD A DOB COLUMN OF TYPE DATE IN STUDENT TABLE
+QUERY-> alter table student add column dob (date) constraint optional;
+
+THIS IS BCOZ OF:  To add Check constraint:
+
+QUERY -> alter table student add constraint age(constraintName) check(dob > 1999-03-29);
+[dob-> It is column name, and age is constraint name this is bcoz 
+kyuki 1 column pr multiple ho skte hai constraint, toh as a dentification ki isko delete 
+krna hai, 
+
+NOTE-> THIS IS MOSTLY FOR "CHECK" CONSTRAINT
+AND 1 COLUMN multiple CHECK CONTRAINT APPLY KAR SKTE HAI, ISLIYE NAME DIYA HAI 
+]
+
+ques) DROP CHECK CONTRAINT
+QUERY -> alter table student drop constraint age;
+
+
+
+6) ALTER TABLE AND ADD PRIMARY KEY 
+alter table student add primary key id(ColName)
+
+
+7) DELETE COMMAND-> 
+delete from TABLE_NAME; // IT DELETE EVERY ROWS DATA 
+
+-------------------------
+
+MAKING FOREIGN KEY - It is used to help making realtions
+
+1) create table schools (name varchar(20));
+   
+primary key; -> Foregin key bnana hai student me, toh kahin primary key bhi honi chaiye.
+   
+    - alter table schools add column id int(20) primary key;
+   
+    hm ik foreign key add krna chahte h, so usse pehle 1 foregin key wala column bnaya 
+    school_id isko foreign key bnanaege
+    
+     - alter table student add column school_id int
+
+     - Now school_id isko foreign key bnana chahte hai?
+
+     alter table student add constraint fk foreign key (school_id) reference school(id);
+
+   [reference ke baad Parent_Ttable_Name], Parent_Table ke andr primary key 
+ reference se pehle jo  hmare table ke andr jo id hai
+ so jo school_id me voi dalege jo sirf exist krta hogi school table me]
+
+----------------------------------
+
+MEANING OF FOREIGN KEY ->
+eg: school management system hai, schools me students hote hai, but govt ko chaiye ki sare 
+schools ko bhi kahin rakhna hai , to unhone school table bna rakha hai and unhone 
+sb school ko school id di hui hai, so vo school id sare student ki common hogi uss school 
+me jo honge, so student table me school_id foreign attribute hai, jo govt se aara hai 
+
+Foreign key means -> bhar ka koi column jo hmare table me enter hora hai,
+but in foreign key, dataType or constraint can be null but aisi value nahi ho skti jo 
+exist nahi krti 
+
+Eg: insert krege 10 or 1 hi school hi exist krti hai , toh error violate foreign key 
+
+-> so agr delete krna chahte hai, sari entry ko jidr parent primary key, toh vo error 
+Degi, or update bhi nahi kr skte ,bcoz foregin key is dependent
+
+-> PRIMARY KEY hi foreign key bnegi dusre table me 
+
+--------------------------------FINISH-------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

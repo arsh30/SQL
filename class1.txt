@@ -1,0 +1,149 @@
+Syllabus
+
+WORKFLOW ----------->
+
+->  language aquastic -> means same logic php,nodejs,ruby har jgh same hoga 
+
+-> 1-2 schema discuss
+
+-> inta reels backend, iska bss sql krege
+
+
+use via XAMPP --------> 
+
+-------------------------------------------------------
+
+1) what is database
+sol) It is the method used to store the Information in organized manner.
+      2)for quick read,write update and delete
+
+2) purpose of database 
+sol) 1) reduces data redundancy. [means kahi aur data kuch hai and kahin aur kahin 
+                                  or kuch]
+     2) reduce data duplicacy
+     3) reduce data inconsistency - [means kahi aur data kuch hai and kahin aur 
+                                     kahin  or kuch]
+     4) data security -> [means user ko right de skte hai ki yeh admin hi access 
+                         krskta hai ]
+     5) Enforcing standard -> [means set of rules have to follow]
+
+
+---------------------------------------------------------
+
+3) RDMS -> Relational database management system
+RDBMS -> It is a way to manage the data. and SQL is one of the type to do RDBMS
+
+Types to do RDBMS -> 
+    - SQL (structured query language)
+    - postgre SQL
+    - Oracle 
+    
+-------------------------------------------------------------
+
+4) Eg: we had a attendance register in school , in which it is a table form 
+similarly in SQL - It is also in Table form 
+
+4.1) Table 
+4.2) Attribute - No of columns
+4.3) Tuples - No of rows, Entries
+4.4) Cardinality - No of Unique entries in a column, (hr column ki Cardinality 
+                    check krte hai)
+4.5) degree - No of attribite [column]
+
+Eg:
+
+Table -> attendance
+
+RNO   	Name	TM	    om
+1	    sam	    100	    40
+2	    sam	    100	    50
+3	    simran	100	    60
+3	    arsh	100	    70
+
+1) Attribute - No of column -> 4
+2) Tuple - No of row -> 4
+3) degree - No of colum - 4
+4) Cardinality -> no of uniques of each column 
+    RNO - Cardinality - 3
+    Name - Cardinality - 3 [coz 3 name hi diff h]
+    TM - Cardinality -1
+    OM - Cardinality -4
+
+--------------------------------------------------------------------------------
+
+RDBMS -> What does this mean by Relational 
+
+
+Table -> attendance
+
+RNO   	Name	    Gen     Date       P/A
+1	    jasbir	    M	    11/11       P
+2	    Rakesh	    M	    11/11       P
+3	    radha	    F	    12/11       P 
+3	    radha	    F	    13/11       P
+
+Table -> attendance
+
+RNO   	Name	    TM	    om
+1	    jasbir	    100	    40
+2	    Rakesh	    100	    50
+3	    radha	    100	    60
+3	    radha	    100	    70
+
+
+
+QUery -> jo j bnda 21 ko aaya tha uske kitne marks aaye hai 
+
+so jo jo 20 ko present the unke name fetch krte table 1 se 
+and table 2 me marks search krte
+
+
+-------------------------------------------------------------
+
+We are using -> Postgre SQL 
+
+-> sql is structured query language 
+
+-> THE SQL COMMANDS ARE MAINLY CATEGORIZED INTO 4 CATEGORY 
+
+1- DDL - Data definition language, [Table ke around kam krte h CREATE,DROP,ALTER]
+2- DML - Data manipulation language - [insert,update,delete] - data ko change krne 
+        ka way
+
+3- DQL - data query language [ data ko find krne ki commands], SELECT Command 
+4)  DCL - Data Control language [eg: admin bnadiya kisiko taki voi sirf access kr 
+                                 paye]
+5)  TCL - Transaction Control language - [eg: changes revert krna ]
+
+
+DQL -> Eg: vo sare bcho ke name do jo monday ko aaye the
+DCL -> Eg: Admin -> isko sab kuch visible hoye
+           user -> isko admin se kam dikhe 
+
+TCL -> Eg: suppose money is reduced from wallet then we go to customerCare 
+        so they do ROLLBACK Command -> jisse change revert hojate hai 
+
+        ROLLBACK - ise undo ho skta hai, changes revert hoskte hai
+        COMMIT - ise kuch bhi dubara undo nhi hoskta
+
+------------------------------------------------------------------
+
+SOFTWARE ->
+PgAdmin - isme postgre run hota hai 
+phpMyAdmin - isme bhi run hojata hai, mysql
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

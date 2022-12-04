@@ -1,0 +1,248 @@
+SQL -> Structure query language is way to handle the Relational Databases
+
+SQL is mainly categorized into 4 subCategory
+
+1) DDL - Data definition language -> [means table ko define krre honge/change]
+         Eg: create,drop,alter
+
+2) DML - Data Manipulation Language -> [means data ko manipulate krna ]
+        Eg: INSERT,UPDATE,DELETE
+
+3) DCL -> Data control language -> [eg: admin bnaya taki vo har cheez dekh ske and 
+                                    and user use kam cheez dekh ske]
+
+
+4) TCL -> Transaction cntrol language -> [Eg: paytm se paise cut hogye to we go to 
+                customer care, so vo change, REVERT BACK KRTE HAI ]
+
+                eg: ROLLBACK - [means changes und krna],
+                 Commit - [1 bar comit krdiya to dubara undo nhi hoskta]
+
+5) DQL -> Data query language ->eg: [ means data fetch krna  from table ]
+            SELECT Command
+
+
+---------------------------------------
+
+SOFTWARES ->
+
+- clevercloud -> phpMyAdmin admin jesa interface miljaega
+- remoteMySql -> 
+
+--------------------------------------
+
+1) DATA TYPES IN SQL -> 
+
+1) char 
+2) desc - decimal 
+3) Numeric type -> int,float etc , eg: int(20) - to yeh 20 size ka integer accept krega
+4) Real Num
+5) double precision 
+6) boolean
+
+------------------------------------
+
+2) DATE DATA_TYPES -> 
+
+1) ISO (international standar oragnization) 
+                - normal sql use krege to yehi chlega - yy mm dd -> eg 2012-02-24
+
+2) JIS (japanese Industrial standard)  - same yy mm dd 
+
+3) IBM (EUR) -> dd. mm . yyyy eg: 24/2/2020 -> [normally hum use krte hai]
+
+4) IBM (USA) -> mm / dd /yy
+
+-------------------------------------
+
+3) TIME DATA_TYPES ->
+
+1) Time -> ISO -> hh-mm-ss
+
+2) JIS -> same hh-mm-ss 
+
+3) IBM -> hh.mm.ss (dot aajata hai )
+
+------------------------------------
+
+
+1) 1st COMMAND  -> CREATE TABLE COMMAND 
+
+Syntax -> CREATE TABLE TABLE_NAME(
+                                ColName1 dataType(size) constraint(optional),
+                                ColName2 dataType(size) constraint(optional),
+                                ColName2 dataType(size)
+                                 );
+
+NOTE -> PostgreSQL -> isko dataType ke sth size ki need nahi h , 
+sari query semi colon se khtm hoti hai 
+
+
+2) 2nd  COMMAND -> DROP TABLE COMMAND -> To delete a Table permanently
+
+Syntax -> DROP TABLE TABLE_NAME;
+
+3) 3rd Command -> INSERT Command 
+syntax -> insert into TABLE_NAME values (1,'Himanshu',10);
+        2nd way to insert -> insert into table (ColName) values 
+                            (1,'Himanshu');
+        By default value jo jaati hai vo -> not null hoti hai
+
+------------------------------------
+
+
+4) CONSTRAINTSS -> Means limitation or restriction 
+        define -> It is  restriction or condition applicable on a 
+        field or attribute or set of field
+
+1) unique constraint -> Means no duplicate value is there and suppose 
+                        null value ho udr 2 3 me, to kya unique hai?
+                        Yes, null means fie, empty value kisi ke equal nahi h 
+
+                        eg: 
+                        ecode unique 
+                          1
+                          2
+                          3
+                          null 
+                          null
+                          4 
+
+
+    The above example is unique , every value is different and null value 
+    can exist
+
+    Eg: CREATE Table employe(
+            ecode int(10) unique, 
+            name char(20),
+            salary int
+    );
+
+    insert into employe values (1, 'Arsh',10); 
+    insert into employe values (1, 'Arsh',10);  error duplicate , we can add 
+    NULL , mulitple times 
+
+
+
+2) 2nd constraint -> Null or not null 
+    -> The column value can be null or can be not null 
+
+    Eg: create table employee (ecode int(20) null) -> means null value jaa  
+        skti hai
+
+    Eg2: create table employee(ecode int(20) not null) ->  means value jo 
+        hai vo null nhi ho skti 
+
+        insert into employee (colName) values from ("alex"),("steve")
+        [, -> means 2nd row ki entry start hogyi ]
+
+    # char -> Means fixed length, means isse jyda nahi hoskta 
+    # varchar -> Means length can vary 
+
+    create table stu (name varchar(20) null, id int(20) unique); 
+    insert into stu values ('arsh',1); //DONE 
+
+
+    create table stu (name varchar(20) not null, id int(20) unique);
+     insert into stu(name) values ('arsh'); // ERROR -> Bydefault value null 
+     jaegi,so not null constraint  
+
+3) 3rd constraint ->  PRIMARY KEY 
+                -> It is build with the help of 2 constraints unique and 
+                   not null 
+                
+                -> NOTE -> We can add 1 or more than 1 constraint in a 
+                single attribute 
+
+
+4) 4th constraint -> DEFAULT CONSTRAINT 
+                -> Like jb hum kuch nhi date kisi column ki value to vo 
+                Bydefault - 'NULL' hoti hai, similarly 
+
+                create table employe (
+                    ecode int(20),
+                    name varchar(255) default = 'NAME',
+                    salary int(255) default = 9000
+                );
+
+    To agr hum kuch na de to by default value NAME and 9000 jaegi 
+
+
+5)  5th constraint -> ye 'INSERT krne se pehle 1 conditon check krta hai 
+                        agr vo sahi hogi tohi enter hogi)
+
+create table emp (ecode int (20) PRIMARY KEY,
+                ename varchar(255) ,
+                salary int(20) check(salary < 10000)
+                 );
+
+insert into emp values (1, 'arsh', 9000); 
+// ERROR Run hone se pehle it gives -> "violate check constraint"
+
+
+---------------------------------------------------------
+
+INSERT COMMAND 
+
+insert into TABLE_NAME values (row1 ), (row2 ), (row3 ); 
+// we can add multiple rows 
+
+SUBQUERY -> 
+
+insert into bkpEmp (SELECT * from emp); 
+[NOTE -> Pehle andr wali query execute hojegi and bkpEmp pr koi constraint 
+lga to vo enter nhi hoga error dega , sirf voi value enter hoegi jo ho skti 
+hai]
+
+
+-------------------- FINISH -------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
